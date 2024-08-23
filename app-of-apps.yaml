@@ -12,7 +12,7 @@ spec:
     namespace: openshift-gitops
   sources:
     - repoURL: https://github.com/seranpol/app-auto.git
-      path: helm-charts/charts/argocd-app-of-apps
+      path: argocd-app-of-apps
       targetRevision: main
       helm:
         valueFiles:
