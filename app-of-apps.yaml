@@ -1,0 +1,38 @@
+---
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-of-apps
+  namespace: openshift-gitops
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openshift-gitops
+  sources:
+    - repoURL: https://github.com/seranpol/app-auto.git
+      path: helm-charts/charts/argocd-app-of-apps
+      targetRevision: main
+      helm:
+        valueFiles:
+        - "operators-and-configs.yaml"
+        parameters:
+        - name: enviroment
+          value: "DEV"
+        - name: globalAutomationRepoURL
+          value: https://github.com/seranpol/app-auto.git
+        - name: globalClusterRepoURL
+          value: https://github.com/seranpol/app-value.git
+        valuesObject:
+          global:
+            operator:
+              installPlanApproval: Automatic
+    - repoURL: https://github.com/seranpol/app-value.git            
+      targetRevision: main
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - ServerSideApply=true
