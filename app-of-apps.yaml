@@ -17,19 +17,6 @@ spec:
       helm:
         valueFiles:
         - "https://github.com/seranpol/app-value.git/operators-and-configs.yaml"
-        parameters:
-        - name: enviroment
-          value: "DEV"
-        - name: globalAutomationRepoURL
-          value: https://github.com/seranpol/app-auto.git
-        - name: globalClusterRepoURL
-          value: https://github.com/seranpol/app-value.git
-        valuesObject:
-          global:
-            operator:
-              installPlanApproval: Automatic
-    - repoURL: https://github.com/seranpol/app-value.git            
-      targetRevision: main
   syncPolicy:
     automated:
       selfHeal: true
