@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: debug-output
+  namespace: openshift-gitops
+data:
+  foo: bar   
+
+
+---
+
+{{- if $.Values.applications }}
+{{- range $app := $.Values.applications }}
+{{- if hasKey $app "enabled" | ternary $app.enabled $.Values.default.app.enabled }}
+
+---
+
