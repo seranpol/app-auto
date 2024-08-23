@@ -16,7 +16,7 @@ spec:
       targetRevision: main
       helm:
         valueFiles:
-        - "operators-and-configs.yaml"
+        - "https://github.com/seranpol/app-value.git/operators-and-configs.yaml"
         parameters:
         - name: enviroment
           value: "DEV"
