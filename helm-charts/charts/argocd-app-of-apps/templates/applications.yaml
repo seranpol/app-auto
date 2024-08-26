@@ -11,7 +11,7 @@ data:
 
 #{{- if $.Values.applications }}
 {{- range $app := $.Values.applications }}
-{{- if hasKey $app "enabled" | ternary $app.enabled $.Values.default.app.enabled }}
+#{{- if hasKey $app "enabled" | ternary $app.enabled $.Values.default.app.enabled }}
 
 ---
 
@@ -118,7 +118,7 @@ spec:
 
 #{{- end }}
 {{- end }}
-{{- end }}
+#{{- end }}
 
 
 
