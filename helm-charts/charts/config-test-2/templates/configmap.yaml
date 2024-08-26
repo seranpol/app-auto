@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap-test-1
+  namespace: openshift-gitops
+data:
+  IsAlive: {{.Values.data }}
+  ThisIsNumberTwo: "yes it is"
