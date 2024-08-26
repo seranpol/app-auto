@@ -15,11 +15,11 @@ spec:
           matchLabels:
             enviroment: {{ $env }}
         values:
-          clusterEnvironment: {{ $env }}
+          revision: {{ $env }}
     {{- end }}
   template:
     metadata:
-      name: clustergenerator-{{ $i }}-{{.values.clusterEnvironment}}
+      name: clustergenerator-{{ $i }}-{{.values.revision}}
       namespace: {{ (.destination).namespace }}
     spec:    
       project: default
