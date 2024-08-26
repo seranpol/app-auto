@@ -31,7 +31,6 @@ spec:
         helm:
           valuesObject:
             applications: {{ $app.generatorApplications | toYaml | nindent 14 }}
-            myvar: fdsfad
             
 {{- end }}
 {{- end }}
