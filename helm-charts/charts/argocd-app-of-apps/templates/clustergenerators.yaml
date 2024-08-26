@@ -14,7 +14,7 @@ spec:
       name: foobar-{{ $i }}-{{ .name }}
       namespace: {{ (.destination).namespace }}
     spec:    
-      project: cluster-config
+      project: default
       syncPolicy:
         automated:
           prune: true
@@ -30,7 +30,7 @@ spec:
         targetRevision: main        
         helm:
           valuesObject:
-            applications: {{ $app.applications | toYaml | nindent 14 }}
+            applications: {{ $app.clustergenerators | toYaml | nindent 14 }}
             myvar: fdsfad
             
 {{- end }}
