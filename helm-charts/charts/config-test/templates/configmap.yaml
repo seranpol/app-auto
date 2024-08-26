@@ -4,4 +4,4 @@ metadata:
   name: debug-output
   namespace: openshift-gitops
 data:
-  IsAlive: true
+  IsAlive: "yes !!"
