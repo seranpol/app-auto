@@ -4,4 +4,4 @@ metadata:
   name: clustergen-test
   namespace: openshift-gitops
 data:
-  IsAlive: {{.Values.somevalues | len }}
+  IsAlive: {{.Values.somevalue }}
