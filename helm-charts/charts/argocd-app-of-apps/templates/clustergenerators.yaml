@@ -30,7 +30,7 @@ spec:
         targetRevision: main        
         helm:
           valuesObject:
-            applications: {{ $app.clustergenerators | toYaml | nindent 14 }}
+            applications: {{ $app.applications | toYaml | nindent 14 }}
             myvar: fdsfad
             
 {{- end }}
