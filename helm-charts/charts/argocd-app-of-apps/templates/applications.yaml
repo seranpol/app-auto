@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: debug-output
+  namespace: openshift-gitops
+data:
+  IsAlive: true
+
+---
+
+{{- if $.Values.applications }}
+{{- range $app := $.Values.applications }}
+{{- if hasKey $app "enabled" | ternary $app.enabled $.Values.default.app.enabled }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .name }}
+{{- if $.Values.default.app.labels }}
+  labels:
+{{- toYaml $.Values.default.app.labels | nindent 4 }}
+{{- if .labels }}
+{{- toYaml .labels | nindent 4 }}
+{{- end }}
+{{- end }}
+
+{{- end }}
+{{- end }}
+{{- end }}
