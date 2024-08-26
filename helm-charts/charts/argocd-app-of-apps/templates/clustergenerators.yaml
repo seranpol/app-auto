@@ -14,12 +14,10 @@ spec:
         selector:
           matchLabels:
             enviroment: {{ $env }}
-        values:
-          clusterEnvironment: {{ $env }}
     {{- end }}
   template:
     metadata:
-      name: clustergenerator-'{{values.clusterEnvironment}}''
+      name: foobar-{{ $i }}-{{ .name }}
       namespace: {{ (.destination).namespace }}
     spec:    
       project: default
