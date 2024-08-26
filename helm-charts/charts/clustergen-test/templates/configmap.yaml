@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: clustergen-test
+  namespace: openshift-gitops
+data:
+  IsAlive: {{.Values.somevalues | len }}
