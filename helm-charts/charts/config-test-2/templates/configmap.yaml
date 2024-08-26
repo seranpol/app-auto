@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: configmap-test-1
+  name: configmap-test-2
   namespace: openshift-gitops
 data:
   IsAlive: {{.Values.data }}
