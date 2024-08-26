@@ -4,5 +4,5 @@ metadata:
   name: debug-output-from-app-of-apps
   namespace: openshift-gitops
 data:
-  IsAlive: true
+  IsAlive: "true"
 
