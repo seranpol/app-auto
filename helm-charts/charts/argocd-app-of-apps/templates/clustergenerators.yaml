@@ -26,11 +26,11 @@ spec:
         namespace: openshift-gitops
       source:
         repoURL: {{ $.Values.globalAutomationRepoURL }}
-        path: helm-charts/charts/argocd-app-of-apps/applicatisdasons.yaml
+        path: helm-charts/charts/argocd-app-of-apps
         targetRevision: main        
         helm:
           valuesObject:
-            applications: {{ $app.applications | toYaml | nindent 14 }}
+            applications: {{ $app.generatorApplications | toYaml | nindent 14 }}
             myvar: fdsfad
             
 {{- end }}
