@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: debug-output
+  name: debug-output-from-app-of-apps
   namespace: openshift-gitops
 data:
   IsAlive: true
