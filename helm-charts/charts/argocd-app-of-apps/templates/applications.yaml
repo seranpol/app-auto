@@ -5,13 +5,13 @@ metadata:
   name: debug-output-from-app-of-apps
   namespace: openshift-gitops
 data:
-  IsAlive: "hardcoded"
+  IsAlive: {{ .Values.applications | count }}
 
 ---
 
-#{{- if $.Values.applications }}
+{{- if $.Values.applications }}
 {{- range $app := $.Values.applications }}
-#{{- if hasKey $app "enabled" | ternary $app.enabled $.Values.default.app.enabled }}
+{{- if hasKey $app "enabled" | ternary $app.enabled $.Values.default.app.enabled }}
 
 ---
 
@@ -116,9 +116,9 @@ spec:
   {{- end }}
 
 
-#{{- end }}
 {{- end }}
-#{{- end }}
+{{- end }}
+{{- end }}
 
 
 
