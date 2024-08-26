@@ -1,8 +1,124 @@
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: debug-output-from-app-of-apps
   namespace: openshift-gitops
 data:
-  IsAlive: "true"
+  IsAlive: "hardcoded"
+
+  ---
+
+{{- if $.Values.applications }}
+{{- range $app := $.Values.applications }}
+{{- if hasKey $app "enabled" | ternary $app.enabled $.Values.default.app.enabled }}
+
+---
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .name }}
+{{- if $.Values.default.app.labels }}
+  labels:
+{{- toYaml $.Values.default.app.labels | nindent 4 }}
+{{- if .labels }}
+{{- toYaml .labels | nindent 4 }}
+{{- end }}
+{{- end }}
+
+{{- if $.Values.default.app.annotations }}
+  annotations:
+{{- toYaml $.Values.default.app.annotations | nindent 4 }}
+{{- if .annotations }}
+{{- toYaml .annotations | nindent 4 }}
+{{- end }}
+{{- end }}
+spec:
+  destination:
+    namespace: {{ (.destination).namespace | default $.Values.default.app.destination.namespace | required (printf "No destination.namespace specified") }}
+    server: {{ (.destination).server | default $.Values.default.app.destination.server | required (printf "No destination.server specified") }}
+  project: {{ .project | default $.Values.default.app.project }}
+  {{- if hasKey $app "enableAutoSync" | ternary $app.enableAutoSync $.Values.default.app.enableAutoSync }}
+  syncPolicy:
+    retry:
+      {{- if .retry }}
+      {{- toYaml .retry | nindent 6 }}
+      {{- else }}
+      {{- toYaml $.Values.default.app.retry | nindent 6 }}
+      {{- end }}
+    automated:
+      selfHeal: true
+      {{- if hasKey $app "autoSyncPrune" | ternary $app.autoSyncPrune $.Values.default.app.autoSyncPrune }}
+      prune: true
+      {{- end }}
+    {{- if .syncOptions }} 
+    syncOptions:
+    {{- toYaml .syncOptions | nindent 6 }}
+    {{- end }}
+  {{- end }}
+  {{- if .ignoreDifferences }}
+  ignoreDifferences:
+  {{- toYaml .ignoreDifferences | nindent 4 }}
+  {{- end }}
+
+  {{- if .sources }}
+  sources:
+    {{- range $i, $source := .sources }}
+      {{- if .clusterRepoPath}}
+    - repoURL: {{ $.Values.globalClusterRepoURL }}
+      path: {{ .clusterRepoPath }}
+      {{- else if .chartRepoPath }}
+    - repoURL: {{ .chartRepoPath }}
+      chart: {{ .chartName }}
+      {{- else }}
+    - repoURL: {{ .repoURL | default $.Values.globalAutomationRepoURL }}
+      path: {{ .path | required (printf "Path not specified in sources.") }}
+      {{- end }}
+      targetRevision: {{ .targetRevision | default "main" }}
+      {{- if or (.helm) (.clusterRepoValuesPath) (.clusterRepoValuesPaths) (eq .forwardGitParams "true") }}
+      helm:
+        {{- if .clusterRepoValuesPaths }}
+        valueFiles:
+          {{- range $valuesPath := .clusterRepoValuesPaths }}
+          - $ref{{ $i }}/{{ $valuesPath }}
+          {{- end }}
+        {{- else if .clusterRepoValuesPath }}
+        valueFiles:
+          - $ref{{ $i }}/{{ .clusterRepoValuesPath }}
+        {{- end }}
+        values: |
+          {{- if and .helm .helm.values }}
+          {{- .helm.values | nindent 10 }}
+          {{- end }}
+          {{- if $.Values.global }}
+          global:
+            {{- toYaml $.Values.global | nindent 12 }}
+          {{- end }}
+        {{- if eq .forwardGitParams "true" }}
+        parameters:
+          - name: globalAutomationRepoURL
+            value: {{ $.Values.globalAutomationRepoURL }}
+          - name: globalClusterRepoURL
+            value: {{ $.Values.globalClusterRepoURL }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{- range $i, $source := .sources }}
+    {{- if or (.clusterRepoValuesPath) (.clusterRepoValuesPaths) }}
+    - repoURL: {{ $.Values.globalClusterRepoURL }}
+      targetRevision: {{ .clusterRepoTargetRevision | default "main" }}
+      ref: ref{{ $i }}
+    {{- end }}
+    {{- end }}
+
+  {{- end }}
+
+
+{{- end }}
+{{- end }}
+{{- end }}
+
+
 
