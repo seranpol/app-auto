@@ -15,7 +15,7 @@ spec:
           matchLabels:
             enviroment: {{ $env }}
         values:
-          environment: {{ $env }}
+          environment: '{{ $env }}'
     {{- end }}
   template:
     metadata:
