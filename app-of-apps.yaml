@@ -17,9 +17,22 @@ spec:
       helm:
         valueFiles:
         - "$valueRepo/bootstrap/operators-and-configs.yaml"
+        parameters:
+        - name: enviroment
+          value: "dev"
+        - name: globalAutomationRepoURL
+          value: https://github.com/seranpol/app-auto.git
+        - name: globalClusterRepoURL
+          value: "{{ valueRepo }}"
+        valuesObject:
+          global:
+            operator:
+              installPlanApproval: Automatic
     - repoURL: https://github.com/seranpol/app-value.git
       ref: valueRepo
       targetRevision: main
+
+
   syncPolicy:
     automated:
       selfHeal: true

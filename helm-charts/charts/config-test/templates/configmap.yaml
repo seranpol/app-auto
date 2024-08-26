@@ -4,4 +4,4 @@ metadata:
   name: configmap-test
   namespace: openshift-gitops
 data:
-  IsAlive: "yes !!"
+  IsAlive: "generated - good stuff !"
