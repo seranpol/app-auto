@@ -14,6 +14,7 @@ spec:
         selector:
           matchLabels:
             enviroment: {{ $env }}
+        # https://github.com/argoproj/argo-cd/issues/16830
         values:
           clusterEnvironment: {{ $env }}
     {{- end }}
@@ -46,7 +47,7 @@ spec:
             - name: globalClusterRepoURL
               value: {{ $.Values.globalClusterRepoURL }}
             - name: test
-              value: '{{ .values.clusterEnvironment }}''
+              value: "{{`{{ .values.clusterEnvironment }}`}}"
 
             
 {{- end }}
