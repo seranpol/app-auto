@@ -8,7 +8,13 @@ metadata:
   name: {{ .name }}
   namespace: {{.namespace}}
 spec:
-  generators:  []
+  generators:
+    {{- range $env := .environments }}
+    - clusters:
+        selector:
+          matchLabels:
+            enviroment: {{ $env }}
+    {{- end }}
   template:
     metadata:
       name: foobar-{{ $i }}-{{ .name }}
