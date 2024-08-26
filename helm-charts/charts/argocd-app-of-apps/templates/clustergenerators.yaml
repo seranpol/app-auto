@@ -14,13 +14,13 @@ spec:
         selector:
           matchLabels:
             enviroment: {{ $env }}
-        values:
-          environment: {{ $env }}
+        # values:
+        #   environment: {{ $env }}
     {{- end }}
   template:
     metadata:
       #name: 'clustergenerator-{{ .values.environment }}'
-      name: 'clustergenerator-'
+      name: 'clustergenerator'
       namespace: {{ (.destination).namespace }}
     spec:    
       project: default
