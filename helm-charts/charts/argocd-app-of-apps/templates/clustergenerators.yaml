@@ -38,6 +38,11 @@ spec:
         helm:
           valuesObject:
             applications: {{ $app.generatorApplications | toYaml | nindent 14 }}
+          parameters:
+            - name: globalAutomationRepoURL
+              value: {{ $.Values.globalAutomationRepoURL }}
+            - name: globalClusterRepoURL
+              value: {{ $.Values.globalClusterRepoURL }}
             
 {{- end }}
 {{- end }}
