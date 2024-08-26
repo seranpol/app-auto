@@ -12,11 +12,11 @@ spec:
     namespace: openshift-gitops
   sources:
     - repoURL: https://github.com/seranpol/app-auto.git
-      path: argocd-app-of-apps
+      path: helm-charts/charts/argocd-app-of-apps
       targetRevision: main
       helm:
         valueFiles:
-        - "$valueRepo/operators-and-configs.yaml"
+        - "$valueRepo/bootstrap/operators-and-configs.yaml"
     - repoURL: https://github.com/seranpol/app-value.git
       ref: valueRepo
       targetRevision: main
