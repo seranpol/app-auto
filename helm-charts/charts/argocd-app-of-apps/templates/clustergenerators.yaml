@@ -27,7 +27,7 @@ spec:
       source:
         repoURL: {{ $.Values.globalAutomationRepoURL }}
         path: helm-charts/charts/argocd-app-of-apps
-        targetRevision: hmo-introduce-cluster-generators        
+        targetRevision: main        
         helm:
           valuesObject:
             applications: {{ $app.applications | toYaml | nindent 14 }}
