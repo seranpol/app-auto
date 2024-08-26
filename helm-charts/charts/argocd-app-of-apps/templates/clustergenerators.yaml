@@ -19,7 +19,8 @@ spec:
     {{- end }}
   template:
     metadata:
-      name: 'clustergenerator-{{ .values.environment }}'
+      #name: 'clustergenerator-{{ .values.environment }}'
+      name: 'clustergenerator-'
       namespace: {{ (.destination).namespace }}
     spec:    
       project: default
