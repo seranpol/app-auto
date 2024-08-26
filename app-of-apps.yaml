@@ -21,7 +21,7 @@ spec:
         - name: globalAutomationRepoURL
           value: https://github.com/seranpol/app-auto.git
         - name: globalClusterRepoURL
-          value: "$valueRepo"
+          value: https://github.com/seranpol/app-value.git
 
     - repoURL: https://github.com/seranpol/app-value.git
       ref: valueRepo
