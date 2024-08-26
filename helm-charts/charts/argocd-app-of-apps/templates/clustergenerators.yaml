@@ -1,0 +1,38 @@
+{{- if .Values.clustergenerators }}
+{{- range $i, $app := .Values.clustergenerators }}
+{{- if hasKey $app "enabled" | ternary $app.enabled $.Values.default.app.enabled }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: {{ .name }}
+  namespace: {{.namespace}}
+spec:
+  generators:  []
+  template:
+    metadata:
+      name: foobar-{{ $i }}-{{ .name }}
+      namespace: {{ (.destination).namespace }}
+    spec:    
+      project: cluster-config
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - ServerSideApply=true
+      destination:
+        name: 'https://kubernetes.default.svc'
+        namespace: openshift-gitops
+      source:
+        repoURL: {{ $.Values.globalAutomationRepoURL }}
+        path: helm-charts/charts/argocd-app-of-apps
+        targetRevision: hmo-introduce-cluster-generators        
+        helm:
+          valuesObject:
+            applications: {{ $app.applications | toYaml | nindent 14 }}
+            myvar: fdsfad
+            
+{{- end }}
+{{- end }}
+{{- end }}
