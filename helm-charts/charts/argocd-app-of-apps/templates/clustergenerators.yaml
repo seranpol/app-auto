@@ -17,7 +17,7 @@ spec:
     {{- end }}
   template:
     metadata:
-      name: foobar-{{ $i }}-{{ .name }}
+      name: clustergenerator-{{ $env }}
       namespace: {{ (.destination).namespace }}
     spec:    
       project: default
