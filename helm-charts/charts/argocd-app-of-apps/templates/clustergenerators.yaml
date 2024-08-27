@@ -23,7 +23,8 @@ spec:
       name: {{.name}}-clustergenerator-{{ $i }}
       namespace: {{ (.destination).namespace }}
     spec:    
-      project: generator-test-project
+      # project: generator-test-project
+      project: {{ .argoProject }}
       syncPolicy:
         automated:
           prune: true
