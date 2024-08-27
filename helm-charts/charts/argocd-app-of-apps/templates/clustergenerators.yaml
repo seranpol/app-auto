@@ -24,7 +24,7 @@ spec:
       namespace: {{ (.destination).namespace }}
     spec:    
       # project: generator-test-project
-      project: generator-test-project
+      project: default
       syncPolicy:
         automated:
           prune: true
