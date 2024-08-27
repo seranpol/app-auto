@@ -8,7 +8,6 @@ metadata:
   name: {{ .name }}
   namespace: {{.namespace}}
 spec:
-  project: {{ $.Values.argoProject }}
   generators:
     {{- range $env := .environments }}
     - clusters:
