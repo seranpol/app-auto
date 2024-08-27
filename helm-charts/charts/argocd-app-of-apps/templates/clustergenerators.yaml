@@ -24,6 +24,7 @@ spec:
       name: {{.name}}-clustergenerator-{{ $i }}
       namespace: {{ (.destination).namespace }}
     spec:    
+      project: default
       syncPolicy:
         automated:
           prune: true
