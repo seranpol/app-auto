@@ -1,24 +1,7 @@
-
-# apiVersion: v1
-# kind: ConfigMap
-# metadata:
-#   name: debug-output-from-app-of-apps
-#   namespace: openshift-gitops
-# data:
-#   alive: "hardcoded"
-#   names: |-
-#     {{- range .Values.applications }}
-#     {{ .name }}
-#     {{- end }}
-
----
-
-{{- if $.Values.applications }}
-{{- range $app := $.Values.applications }}
+{{- if .Values.applications }}
+{{- range $app := .Values.applications }}
 {{- if hasKey $app "enabled" | ternary $app.enabled $.Values.default.app.enabled }}
-
 ---
-
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -40,9 +23,9 @@ metadata:
 {{- end }}
 spec:
   destination:
-    namespace: openshift-gitops
-    server: https://kubernetes.default.svc
-  project: default
+    namespace: {{ (.destination).namespace | default $.Values.default.app.destination.namespace | required (printf "No destination.namespace specified") }}
+    server: {{ (.destination).server | default $.Values.default.app.destination.server | required (printf "No destination.server specified") }}
+  project: {{ .project | default $.Values.default.app.project }}
   {{- if hasKey $app "enableAutoSync" | ternary $app.enableAutoSync $.Values.default.app.enableAutoSync }}
   syncPolicy:
     retry:
@@ -119,10 +102,6 @@ spec:
 
   {{- end }}
 
-
 {{- end }}
 {{- end }}
 {{- end }}
-
-
-
