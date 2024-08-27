@@ -20,7 +20,7 @@ spec:
     {{- end }}
   template:
     metadata:
-      name: clustergenerator-{{ $i }}
+      name: {{.name}}-clustergenerator-{{ $i }}
       namespace: {{ (.destination).namespace }}
     spec:    
       project: default
