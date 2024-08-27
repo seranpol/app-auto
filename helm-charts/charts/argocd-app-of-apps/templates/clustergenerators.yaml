@@ -8,7 +8,6 @@ metadata:
   name: {{ .name }}
   namespace: {{.namespace}}
 spec:
-  project: generator-test-project
   generators:
     {{- range $env := .environments }}
     - clusters:
@@ -24,7 +23,7 @@ spec:
       name: {{.name}}-clustergenerator-{{ $i }}
       namespace: {{ (.destination).namespace }}
     spec:    
-      project: default
+      project: generator-test-project
       syncPolicy:
         automated:
           prune: true
