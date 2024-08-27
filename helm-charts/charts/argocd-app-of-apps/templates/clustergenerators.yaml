@@ -14,7 +14,7 @@ spec:
         selector:
           matchLabels:
             enviroment: {{ $env }}
-        # https://github.com/argoproj/argo-cd/issues/16830
+        # can't be used https://github.com/argoproj/argo-cd/issues/16830
         values:
           clusterEnvironment: {{ $env }}
     {{- end }}
