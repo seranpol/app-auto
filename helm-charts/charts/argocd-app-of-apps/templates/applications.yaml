@@ -1,7 +1,10 @@
-{{- if .Values.applications }}
-{{- range $app := .Values.applications }}
+
+{{- if $.Values.applications }}
+{{- range $app := $.Values.applications }}
 {{- if hasKey $app "enabled" | ternary $app.enabled $.Values.default.app.enabled }}
+
 ---
+
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -23,9 +26,9 @@ metadata:
 {{- end }}
 spec:
   destination:
-    namespace: {{ (.destination).namespace | default $.Values.default.app.destination.namespace | required (printf "No destination.namespace specified") }}
-    server: {{ (.destination).server | default $.Values.default.app.destination.server | required (printf "No destination.server specified") }}
-  project: {{ .project | default $.Values.default.app.project }}
+    namespace: openshift-gitops
+    server: https://kubernetes.default.svc
+  project: default
   {{- if hasKey $app "enableAutoSync" | ternary $app.enableAutoSync $.Values.default.app.enableAutoSync }}
   syncPolicy:
     retry:
@@ -102,6 +105,10 @@ spec:
 
   {{- end }}
 
+
 {{- end }}
 {{- end }}
 {{- end }}
+
+
+
