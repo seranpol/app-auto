@@ -8,7 +8,7 @@ metadata:
   name: {{ .name }}
   namespace: {{.namespace}}
 spec:
-  project: default
+  project: generator-test-project
   generators:
     {{- range $env := .environments }}
     - clusters:
