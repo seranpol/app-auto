@@ -14,3 +14,7 @@ default:
         factor: 2
     annotations:
       argocd.argoproj.io/sync-options: ServerSideApply=true
+
+projects:
+
+applications:
