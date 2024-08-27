@@ -47,6 +47,8 @@ spec:
               value: {{ $.Values.globalAutomationRepoURL }}
             - name: globalClusterRepoURL
               value: {{ $.Values.globalClusterRepoURL }}
+            - name: app
+              value: {{ $Values.default.app }}
 {{- end }}
 {{- end }}
 {{- end }}
