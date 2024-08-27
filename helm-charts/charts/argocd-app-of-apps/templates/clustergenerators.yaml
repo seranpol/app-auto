@@ -48,7 +48,7 @@ spec:
             - name: globalClusterRepoURL
               value: {{ $.Values.globalClusterRepoURL }}
             - name: app
-              value: {{ $Values.default.app }}
+              value: {{ $.Values.default.app }}
 {{- end }}
 {{- end }}
 {{- end }}
