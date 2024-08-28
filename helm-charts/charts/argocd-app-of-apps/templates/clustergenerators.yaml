@@ -35,7 +35,7 @@ spec:
       destination:
         #name: 'https://kubernetes.default.svc'
         name: 'in-cluster'
-        namespace: default
+        namespace: openshift-gitops
       source:
         repoURL: {{ $.Values.globalAutomationRepoURL }}
         path: helm-charts/charts/argocd-app-of-apps
