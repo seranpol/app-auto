@@ -37,7 +37,11 @@ spec:
       destination:
         #name: 'in-cluster' - this works
         server: {{ (.destination).server | default $.Values.default.app.destination.server | required (printf "No destination.server specified") }}
+
+        # working here
         namespace: {{$.Values.namespace}}
+
+
       source:
         repoURL: {{ $.Values.globalAutomationRepoURL }}
         path: helm-charts/charts/argocd-app-of-apps
