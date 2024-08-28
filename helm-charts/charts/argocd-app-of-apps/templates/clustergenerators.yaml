@@ -26,8 +26,7 @@ spec:
       namespace: default
       #namespace: {{ (.destination).namespace }}
     spec:    
-      # project: generator-test-project
-      project: {{ .argoProject | default $.Values.default.app.project }}
+      project: {{ .project | default $.Values.default.app.project }}
       syncPolicy:
         automated:
           prune: true
