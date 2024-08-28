@@ -36,7 +36,7 @@ spec:
           - ServerSideApply=true
       destination:
         #name: 'in-cluster' - this works
-        server: {{.server}}
+        server: {{ (.destination).server | default $.Values.default.app.destination.server | required (printf "No destination.server specified") }}
         namespace: openshift-gitops
       source:
         repoURL: {{ $.Values.globalAutomationRepoURL }}
