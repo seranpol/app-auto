@@ -22,7 +22,9 @@ spec:
     metadata:
       name: {{.name}}-clustergenerator-{{ $i }}
       namespace: default
+      #namespace: {{ (.destination).namespace }}
     spec:    
+      # project: generator-test-project
       project: default
       syncPolicy:
         automated:
@@ -31,6 +33,7 @@ spec:
         syncOptions:
           - ServerSideApply=true
       destination:
+        #name: 'https://kubernetes.default.svc'
         name: 'in-cluster'
         namespace: openshift-gitops
       source:
@@ -45,6 +48,8 @@ spec:
               value: {{ $.Values.globalAutomationRepoURL }}
             - name: globalClusterRepoURL
               value: {{ $.Values.globalClusterRepoURL }}
+            # - name: app
+            #   value: {{ $.Values.default.app }}
 {{- end }}
 {{- end }}
 {{- end }}
