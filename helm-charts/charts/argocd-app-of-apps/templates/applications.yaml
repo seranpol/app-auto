@@ -26,7 +26,7 @@ metadata:
 {{- end }}
 spec:
   destination:
-    namespace: {{ (.destination).namespace | default $.Values.default.app.destination.namespace | required (printf "No destination.namespace specified") }}
+    namespace: 'default'
     server: 'https://kubernetes.default.svc'
   project: {{ .project | default $.Values.default.app.project }}
   {{- if hasKey $app "enableAutoSync" | ternary $app.enableAutoSync $.Values.default.app.enableAutoSync }}
