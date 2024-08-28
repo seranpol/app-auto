@@ -8,7 +8,8 @@ metadata:
   name: {{ .name }}
   namespace: openshift-gitops
 spec:
-  project: default
+  # project can not be defined here - seems like we can't control the project of the ApplicationSet
+  # project: default
   generators:
     {{- range $env := .environments }}
     - clusters:
@@ -35,7 +36,7 @@ spec:
           - ServerSideApply=true
       destination:
         #name: 'https://kubernetes.default.svc'
-        name: 'in-cluster'
+        name: 'in-cluster-what-now'
         namespace: openshift-gitops
       source:
         repoURL: {{ $.Values.globalAutomationRepoURL }}
