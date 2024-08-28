@@ -6,7 +6,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: {{ .name }}
-  namespace: {{.namespace}}
+  namespace: openshift-gitops
 spec:
   generators:
     {{- range $env := .environments }}
