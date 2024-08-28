@@ -35,8 +35,8 @@ spec:
         syncOptions:
           - ServerSideApply=true
       destination:
-        #name: 'https://kubernetes.default.svc'
-        name: 'in-cluster'
+        #name: 'in-cluster' - this works
+        server: {{.server}}
         namespace: openshift-gitops
       source:
         repoURL: {{ $.Values.globalAutomationRepoURL }}
