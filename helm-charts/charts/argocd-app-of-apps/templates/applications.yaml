@@ -28,7 +28,7 @@ spec:
   destination:
     namespace: 'default'
     server: 'https://kubernetes.default.svc'
-  project: {{ .project | default $.Values.default.app.project }}
+  project: {{ (.destination).server | default $.Values.default.app.destination.server | required (printf "No destination.server specified") }}
   {{- if hasKey $app "enableAutoSync" | ternary $app.enableAutoSync $.Values.default.app.enableAutoSync }}
   syncPolicy:
     retry:
