@@ -36,7 +36,7 @@ spec:
           - ServerSideApply=true
       destination:
         #name: 'https://kubernetes.default.svc'
-        name: 'in-cluster-what-now'
+        name: 'in-cluster'
         namespace: openshift-gitops
       source:
         repoURL: {{ $.Values.globalAutomationRepoURL }}
