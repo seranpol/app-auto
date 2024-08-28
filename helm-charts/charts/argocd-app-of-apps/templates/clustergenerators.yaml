@@ -39,7 +39,7 @@ spec:
         server: {{ (.destination).server | default $.Values.default.app.destination.server | required (printf "No destination.server specified") }}
 
         # working here
-        namespace: {{$.Values.namespace}}
+        namespace: {{$.Values.destination.namespace}}
 
 
       source:
