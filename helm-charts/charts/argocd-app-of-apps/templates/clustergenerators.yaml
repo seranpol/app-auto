@@ -21,7 +21,8 @@ spec:
   template:
     metadata:
       name: {{.name}}-clustergenerator-{{ $i }}
-      namespace: {{ (.destination).namespace }}
+      namespace: default
+      #namespace: {{ (.destination).namespace }}
     spec:    
       # project: generator-test-project
       project: default
