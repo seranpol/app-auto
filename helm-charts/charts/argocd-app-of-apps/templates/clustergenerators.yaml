@@ -23,8 +23,8 @@ spec:
   template:
     metadata:
       name: {{.name}}-clustergenerator-{{ $i }}
-      namespace: default
-      #namespace: {{ (.destination).namespace }}
+      #namespace: default
+      namespace: {{ (.destination).namespace }}
     spec:    
       project: {{ .project | default $.Values.default.app.project }}
       syncPolicy:
