@@ -6,7 +6,8 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: {{ .name }}
-  namespace: openshift-gitops
+  namespace: {{ (.destination).namespace }}
+  #namespace: openshift-gitops
 spec:
   # project can not be defined here - seems like we can't control the project of the ApplicationSet
   # project: default
