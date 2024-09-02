@@ -6,7 +6,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: {{ .name }}
-  # needs to be the same namespace and argo cd
+  # needs to be the same namespace as argocd
   namespace: openshift-gitops
 spec:
   generators:
@@ -32,7 +32,7 @@ spec:
         syncOptions:
           - ServerSideApply=true
       destination:
-        # needs to be openshift-gitops
+        # needs to be the same namespace as argocd
         namespace: openshift-gitops
         server: {{ (.destination).server | default $.Values.default.app.destination.server | required (printf "No destination.server specified") }}        
       source:
