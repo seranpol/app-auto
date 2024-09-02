@@ -21,7 +21,7 @@ spec:
     {{- end }}
   template:
     metadata:
-      name: {{.name}}-clustergenerator
+      name: {{.name}}-clustergenerator-application
       namespace: {{ (.destination).namespace }}
     spec:    
       project: {{ .project | default $.Values.default.app.project }}
