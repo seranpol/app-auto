@@ -33,7 +33,8 @@ spec:
           - ServerSideApply=true
       destination:
         server: {{ (.destination).server | default $.Values.default.app.destination.server | required (printf "No destination.server specified") }}
-        namespace: openshift-gitops
+        #namespace: openshift-gitops
+        namespace: {{ (.destination).namespace }}
       source:
         repoURL: {{ $.Values.globalAutomationRepoURL }}
         path: helm-charts/charts/argocd-app-of-apps
