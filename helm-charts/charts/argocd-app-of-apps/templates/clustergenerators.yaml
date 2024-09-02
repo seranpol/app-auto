@@ -6,9 +6,10 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: {{ .name }}
-  # needs to be the same namespace and argo cd
   namespace: openshift-gitops
 spec:
+  # project can not be defined here - seems like we can't control the project of the ApplicationSet
+  # project: default
   generators:
     {{- range $env := .environments }}
     - clusters:
@@ -21,10 +22,12 @@ spec:
     {{- end }}
   template:
     metadata:
-      name: {{.name}}-clustergenerator
-      namespace: {{ (.destination).namespace }}
+      name: {{.name}}-clustergenerator-{{ $i }}
+      namespace: default
+      #namespace: {{ (.destination).namespace }}
     spec:    
-      project: {{ .project | default $.Values.default.app.project }}
+      # project: generator-test-project
+      project: default
       syncPolicy:
         automated:
           prune: true
@@ -32,8 +35,13 @@ spec:
         syncOptions:
           - ServerSideApply=true
       destination:
+        #name: 'in-cluster' - this works
         server: {{ (.destination).server | default $.Values.default.app.destination.server | required (printf "No destination.server specified") }}
+
+        #namespace: openshift-gitops
+        # working here
         namespace: openshift-gitops
+
       source:
         repoURL: {{ $.Values.globalAutomationRepoURL }}
         path: helm-charts/charts/argocd-app-of-apps
@@ -46,8 +54,8 @@ spec:
               value: {{ $.Values.globalAutomationRepoURL }}
             - name: globalClusterRepoURL
               value: {{ $.Values.globalClusterRepoURL }}
-            # - name: app
-            #   value: {{ $.Values.default.app }}
+            - name: app
+              value: {{ $.Values.default.app }}
 {{- end }}
 {{- end }}
 {{- end }}
