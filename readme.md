@@ -4,5 +4,5 @@ assume cluster with argo
 
 
 
-Argo cd admin password: 
+argo cd admin password: 
 oc extract secret/openshift-gitops-cluster -n openshift-gitops --to=-
